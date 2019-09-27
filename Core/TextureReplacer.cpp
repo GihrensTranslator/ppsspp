@@ -341,10 +341,17 @@ void TextureReplacer::PopulateReplacement(ReplacedTexture *result, u64 cachekey,
 		png.version = PNG_IMAGE_VERSION;
 		FILE *fp = File::OpenCFile(filename, "rb");
 		if (png_image_begin_read_from_stdio(&png, fp)) {
-			// We pad files that have been hashrange'd so they are the same texture size.
-			level.w = (png.width * w) / newW;
-			level.h = (png.height * h) / newH;
-			good = true;
+			 // We pad files that have been hashrange'd so they are the same texture size.
+			if (png.width > 512 || png.width > 512) {
+				level.w = (png.width * w) / newW;
+				level.h = (png.height * h) / newH;
+				good = true;
+			}
+			else {
+				level.w = (png.width * w) / png.width;
+				level.h = (png.height * h) / png.height;
+				good = true;
+			}
 		} else {
 			ERROR_LOG(G3D, "Could not load texture replacement info: %s - %s", filename.c_str(), png.message);
 		}
