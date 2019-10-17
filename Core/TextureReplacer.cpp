@@ -348,6 +348,11 @@ void TextureReplacer::PopulateReplacement(ReplacedTexture *result, u64 cachekey,
 				level.h = (png.height * h) / newH;
 				good = true;
 			}
+			else if (png.width == 513 && png.width == 513) {
+				level.w = (png.width * w) / 256;
+				level.h = (png.height * h) / 256;
+				good = true;
+			}
 			else {
 				level.w = (png.width * w) / png.width;
 				level.h = (png.height * h) / png.height;
