@@ -343,12 +343,17 @@ void TextureReplacer::PopulateReplacement(ReplacedTexture *result, u64 cachekey,
 		if (png_image_begin_read_from_stdio(&png, fp)) {
 			 // We pad files that have been hashrange'd so they are the same texture size.
 			 // Now only done to textures that are bigger than 513, so I can ID a texture based on a small area without my replacement being shrunk
-			if (png.width > 513 || png.width > 513) {
+			if (png.width == 513 && png.height == 1025) {
+				level.w = (png.width * w) / 256;
+				level.h = (png.height * h) / 512;
+				good = true;
+			}
+			else if (png.width > 513 || png.height > 513) {
 				level.w = (png.width * w) / newW;
 				level.h = (png.height * h) / newH;
 				good = true;
 			}
-			else if (png.width == 513 && png.width == 513) {
+			else if (png.width == 513 && png.height == 513) {
 				level.w = (png.width * w) / 256;
 				level.h = (png.height * h) / 256;
 				good = true;
